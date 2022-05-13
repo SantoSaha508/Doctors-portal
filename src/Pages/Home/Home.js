@@ -4,6 +4,8 @@ import Info from './Banner/Info';
 import Service from './Banner/Service';
 import Appointment from './Appointment/Appointment';
 import Testimonial from './Testimonial';
+import ContactUs from './ContactUs';
+import Footer from './Shared/Footer';
 
 
 const Home = () => {
@@ -14,6 +16,8 @@ const Home = () => {
             <Service></Service>
             <Appointment></Appointment>
             <Testimonial></Testimonial>
+            <ContactUs></ContactUs>
+            <Footer></Footer>
         </div>
     );
 };

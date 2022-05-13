@@ -4,13 +4,13 @@ const Comments = ({ review }) => {
     const { _id, name, img, location } = review;
 
     return (
-        <div class="card bg-base-100 shadow-xl py-5">
-            <div class="card-body text-center">
+        <div className="card bg-base-100 shadow-xl py-5">
+            <div className="card-body text-center">
                 <p>{review.review}</p>
             </div>
             <div className='flex justify-center items-center '>
-                <div class="avatar px-5">
-                    <div class="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <div className="avatar px-5">
+                    <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         <img src={img} />
                     </div>
                 </div>

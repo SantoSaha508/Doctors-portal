@@ -41,12 +41,12 @@ const Service = () => {
                     ></ServiceCard>)
                 }
             </div>
-            <div class="hero min-h-screen ">
-                <div class="hero-content flex-col lg:flex-row ">
-                    <img src={teratment} class="max-w-sm rounded-lg shadow-2xl" />
+            <div className="hero min-h-screen ">
+                <div className="hero-content flex-col lg:flex-row ">
+                    <img src={teratment} className="max-w-sm rounded-lg shadow-2xl" />
                     <div className='ml-10'>
-                        <h1 class="text-5xl font-bold">Exceptional Dental <br /> Care, on Your Terms</h1>
-                        <p class="py-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus dolorem distinctio incidunt fuga nostrum, laudantium consectetur debitis quas dolor laboriosam impedit fugiat molestiae expedita earum recusandae illo, suscipit amet ea.</p>
+                        <h1 className="text-5xl font-bold">Exceptional Dental <br /> Care, on Your Terms</h1>
+                        <p className="py-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus dolorem distinctio incidunt fuga nostrum, laudantium consectetur debitis quas dolor laboriosam impedit fugiat molestiae expedita earum recusandae illo, suscipit amet ea.</p>
                         <PrimaryButton>GET STARTED</PrimaryButton>
                     </div>
                 </div>
