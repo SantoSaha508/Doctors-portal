@@ -11,6 +11,8 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
         const email = event.target.email.value;
         const phone = event.target.phone.value;
         console.log(_id, name, slot, email, phone);
+
+        // to close the modal
         setTreatment(null);
     }
 
