@@ -1,53 +1,81 @@
 import React from 'react';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 import google from '../../../assets/logo/google1.png';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
-import { useForm } from "react-hook-form";
 import Loading from '../../Home/Shared/Loading';
-import { Link } from 'react-router-dom';
 
 
 
-const Login = () => {
+
+const SignUp = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const [
-        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
         user,
         loading,
         error,
-      ] = useSignInWithEmailAndPassword(auth);
-      let signinError;
+      ] = useCreateUserWithEmailAndPassword(auth);
+    
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
-    if (gLoading || loading) {
+    const navigate = useNavigate();
+
+    let signinError;
+
+    if (gLoading || loading || updating) {
         return <Loading></Loading>
     }
 
-    
 
-    if(gError || error){
+
+    if (gError || error || updateError) {
         signinError = <p className='text-red-500'><small>{gError?.message || error?.message}</small></p>
     }
 
-    if(gUser || user){
-        console.log(user);
+    if (gUser || user) {
+        navigate('/home');
     }
 
-    const onSubmit = data => {
+    const onSubmit = async (data) => {
         console.log(data);
-        signInWithEmailAndPassword(data.email, data.password);
+        await createUserWithEmailAndPassword(data.email, data.password);
+        await updateProfile({ displayName: data.name });
+
+        navigate('/appointment');
+
     }
+
 
     return (
         <div className='flex h-screen justify-center items-center '>
             <div className="card w-96 bg-base-100 shadow-xl">
                 <div className="card-body">
-                    <h2 className="text-xl font-bold text-primary text-center">Login
+                    <h2 className="text-xl font-bold text-primary text-center">Sign Up
                     </h2>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
+
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input
+                                {...register("name", {
+                                    required: {
+                                        value: true,
+                                        message: 'Name is required.'
+                                    }
+                                })}
+                                type="text" placeholder="Your name" className="input input-bordered w-full max-w-xs" />
+                            <label className="label">
+                                {errors.name?.type === 'required' && <span className="label-text-alt text-red-700">{errors.name.message}</span>}
+                            </label>
+                        </div>
 
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
@@ -97,9 +125,9 @@ const Login = () => {
 
                         {signinError}
 
-                        <input className="btn w-full max-w-xs" type="submit"  value="Login"/>
+                        <input className="btn w-full max-w-xs" type="submit" value="Registration" />
                     </form>
-                    <p><small>New to Doctors Portal? <Link to="/signup" className='text-primary'>Create new account.</Link></small></p>
+                    <p><small>Have an account? <Link to="/signup" className='text-primary'>Login</Link></small></p>
 
                     <div className="divider"> OR</div>
                     <button
@@ -113,4 +141,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignUp;
